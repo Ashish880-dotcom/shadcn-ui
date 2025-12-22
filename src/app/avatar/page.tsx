@@ -4,7 +4,7 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 
-export function AvatarDemo() {
+export default function AvatarDemo() {
   return (
     <div className="flex flex-row flex-wrap items-center gap-12">
       <Avatar>
