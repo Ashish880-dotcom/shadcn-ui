@@ -2,13 +2,18 @@ import React from "react";
 import Link from "next/link";
 
 const page = () => {
+  const links = [
+    { href: "/accordion", label: "1. accordion" },
+    { href: "/alert-dialog", label: "2. alert-dialog" },
+    { href: "/avatar", label: "3. avatar" },
+    { href: "/alert", label: "4. alert"},
+    { heref "/aspect-ratio", label:"5. aspect-ratio"},
+  ];
   return (
-    <div>
-      <Link href="/accordion">accordion</Link>
-      <br />
-      <Link href="/alert-dialog">alert-dialog</Link>
-      <br />
-      <Link href="/avatar">avatar</Link>
+    <div className="flex flex-col gap-4">
+      {links.map((item) => {
+        return <Link href={item.href}>{item.label}</Link>;
+      })}
     </div>
   );
 };
