@@ -1,27 +1,32 @@
 "use client";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { IUser } from "./api/v1/users/route";
+import { IProduct } from "./api/v1/products/route";
 
-export default function AccordionDemo() {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const handleFetchUsers = async () => {
+export default function ProductListingPage() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  const fetchProducts = async () => {
     try {
-      const response = await axios.get("/api/v1/users");
-      console.log(response);
-      setUsers(response.data.users);
-    } catch (e) {
-      console.log(e);
+      const response = await axios.get("/api/v1/products");
+      setProducts(response.data.products);
+    } catch (error) {
+      console.log(error);
     }
   };
+
   useEffect(() => {
-    handleFetchUsers();
+    fetchProducts();
   }, []);
-  return (
+ return (
     <>
-      {users.map((user) => {
-        return <div>{user.username}</div>;
-      })}
+      {
+        products.map((product) => {
+          return <div>{product.name}</div>
+        })
+      }
     </>
-  );
+  )
+
 }
