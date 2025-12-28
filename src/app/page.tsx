@@ -1,21 +1,27 @@
-import React from "react";
-import Link from "next/link";
+"use client";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { IUser } from "./api/v1/users/route";
 
-const page = () => {
-  const links = [
-    { href: "/accordion", label: "1. accordion" },
-    { href: "/alert-dialog", label: "2. alert-dialog" },
-    { href: "/avatar", label: "3. avatar" },
-    { href: "/alert", label: "4. alert"},
-    { heref "/aspect-ratio", label:"5. aspect-ratio"},
-  ];
+export default function AccordionDemo() {
+  const [users, setUsers] = useState<IUser[]>([]);
+  const handleFetchUsers = async () => {
+    try {
+      const response = await axios.get("/api/v1/users");
+      console.log(response);
+      setUsers(response.data.users);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    handleFetchUsers();
+  }, []);
   return (
-    <div className="flex flex-col gap-4">
-      {links.map((item) => {
-        return <Link href={item.href}>{item.label}</Link>;
+    <>
+      {users.map((user) => {
+        return <div>{user.username}</div>;
       })}
-    </div>
+    </>
   );
-};
-
-export default page;
+}
